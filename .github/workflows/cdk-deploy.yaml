@@ -30,7 +30,10 @@ jobs:
       - run: ls -a
 
       - name: Switch to CDK folder
-        run: cd .cdk
+        run: |
+        cd .cdk
+        pwd
+        ls -a
 
       - run: pwd
 
