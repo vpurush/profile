@@ -31,9 +31,9 @@ jobs:
 
       - name: Switch to CDK folder
         run: |
-        cd .cdk
-        pwd
-        ls -a
+          cd .cdk
+          pwd
+          ls -a
 
       - run: pwd
 
