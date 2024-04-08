@@ -1,0 +1,38 @@
+import { Construct } from "constructs";
+import * as s3 from "aws-cdk-lib/aws-s3";
+import * as s3Deploy from "aws-cdk-lib/aws-s3-deployment";
+import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
+import * as cloudfrontOrigins from "aws-cdk-lib/aws-cloudfront-origins";
+import * as acm from "aws-cdk-lib/aws-certificatemanager";
+import { RemovalPolicy } from "aws-cdk-lib";
+
+type ProfileDistrubutionProps = {
+  // domainName: string;
+  // profileSubDomainName: string;
+  bucket: s3.Bucket;
+};
+
+export class ProfileDistribution extends Construct {
+  distribution: cloudfront.IDistribution;
+  constructor(scope: Construct, props: ProfileDistrubutionProps) {
+    super(scope, "profile-distribution");
+
+    this.distribution = new cloudfront.Distribution(
+      this,
+      "profile-distribution",
+      {
+        defaultRootObject: "index.html",
+        // domainNames: [props.domainName, props.profileSubDomainName],
+        minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
+        defaultBehavior: {
+          origin: new cloudfrontOrigins.S3Origin(props.bucket),
+          compress: true,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
+          viewerProtocolPolicy:
+            cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        },
+        // certificate: props.certificate,
+      }
+    );
+  }
+}
