@@ -25,8 +25,16 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - run: pwd
+
+      - run: ls
+
       - name: Switch to CDK folder
         run: cd .cdk
+
+      - run: pwd
+
+      - run: ls
 
       - name: Install dependencies for cdk
         run: npm install
