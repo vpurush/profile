@@ -27,14 +27,14 @@ jobs:
 
       - run: pwd
 
-      - run: ls
+      - run: ls -a
 
       - name: Switch to CDK folder
         run: cd .cdk
 
       - run: pwd
 
-      - run: ls
+      - run: ls -a
 
       - name: Install dependencies for cdk
         run: npm install
