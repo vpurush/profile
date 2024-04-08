@@ -8,8 +8,8 @@ export class ProfileStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const rootDomainName = "vpurush.com";
-    const profileSubDomainName = "profile.vpurush.com";
+    const rootDomainName = "vpurush-staging.com";
+    const profileSubDomainName = "profile.vpurush-staging.com";
 
     const bucket = new ProfileBucket(this, {
       bucketName: rootDomainName,
