@@ -23,7 +23,7 @@ export class ProfileStack extends cdk.Stack {
     });
 
     bucket.deploy(this, {
-      distribution: distribution.distribution,
+      // distribution: distribution.distribution,
     });
   }
 }

@@ -9,7 +9,7 @@ type ProfileBucketProps = {
 };
 
 type ProfileBucketDeploymentProps = {
-  distribution: cloudfront.IDistribution;
+  // distribution: cloudfront.IDistribution;
 };
 
 export class ProfileBucket extends Construct {
@@ -31,8 +31,6 @@ export class ProfileBucket extends Construct {
       {
         destinationBucket: this.bucket,
         sources: [s3Deploy.Source.asset("../.output/public")],
-        distribution: props.distribution,
-        distributionPaths: ["/*"],
       }
     );
   }
