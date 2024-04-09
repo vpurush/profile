@@ -5,6 +5,7 @@ import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as cloudfrontOrigins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as acm from "aws-cdk-lib/aws-certificatemanager";
 import { RemovalPolicy } from "aws-cdk-lib";
+import { CloudFrontWebDistribution, OriginAccessIdentity } from "aws-cdk-lib/aws-cloudfront";
 
 type ProfileDistrubutionProps = {
   // domainName: string;
@@ -17,22 +18,19 @@ export class ProfileDistribution extends Construct {
   constructor(scope: Construct, props: ProfileDistrubutionProps) {
     super(scope, "profile-distribution");
 
-    this.distribution = new cloudfront.Distribution(
-      this,
-      "profile-distribution",
-      {
-        defaultRootObject: "index.html",
-        // domainNames: [props.domainName, props.profileSubDomainName],
-        minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
-        defaultBehavior: {
-          origin: new cloudfrontOrigins.S3Origin(props.bucket),
-          compress: true,
-          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
-          viewerProtocolPolicy:
-            cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+    const oai = new OriginAccessIdentity(this, `profile-distribution-origin-access-id`, {});
+    props.bucket.grantRead(oai);
+
+    this.distribution = new CloudFrontWebDistribution(this, `profile-web-distribution`, {
+      originConfigs: [
+        {
+          s3OriginSource: {
+            s3BucketSource: props.bucket,
+            originAccessIdentity: oai
+          },
+          behaviors: [{ isDefaultBehavior: true }],
         },
-        // certificate: props.certificate,
-      }
-    );
+      ],
+    });
   }
 }

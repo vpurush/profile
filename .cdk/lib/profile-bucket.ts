@@ -17,7 +17,6 @@ export class ProfileBucket extends Construct {
   constructor(scope: Construct, props: ProfileBucketProps) {
     super(scope, "profile-bucket");
     this.bucket = new s3.Bucket(this, "profile-bucket", {
-      publicReadAccess: true,
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
       bucketName: props.bucketName,
