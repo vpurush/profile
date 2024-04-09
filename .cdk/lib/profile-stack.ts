@@ -1,4 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
+import { CfnOutput } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { ProfileBucket } from './profile-bucket';
 import { ProfileDistribution } from './profile-distribution';
@@ -25,5 +26,7 @@ export class ProfileStack extends cdk.Stack {
     bucket.deploy(this, {
       // distribution: distribution.distribution,
     });
+
+    new CfnOutput(this, "profile-distribution-url-output", {value: distribution.distribution.distributionDomainName});
   }
 }
