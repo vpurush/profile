@@ -24,7 +24,7 @@ export class ProfileStack extends cdk.Stack {
     });
 
     bucket.deploy(this, {
-      // distribution: distribution.distribution,
+      distribution: distribution.distribution,
     });
 
     new CfnOutput(this, "profile-distribution-url-output", {value: distribution.distribution.distributionDomainName});
