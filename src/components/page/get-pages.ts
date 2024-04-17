@@ -1,7 +1,6 @@
-import { gql } from "@apollo/client/core";
-import { getContentfulGraphqlClient } from "../../utils/contentful/get-contentful-graphql-client";
+import { CONTENTFUL_DELIVERY_URL, CONTENTFUL_PREVIEW_TOKEN } from "~/utils/constant";
 
-const query = gql`
+const query = `
   query {
     pageCollection (preview: true) {
       items {
@@ -12,11 +11,26 @@ const query = gql`
   }
 `;
 
+
 type ContentfulPage = {
   title: string;
   slug: string;
 }
 
-export const getPageCollection = () : Promise<ContentfulPage[]> => {
-  return getContentfulGraphqlClient().query({ query }).then((value) => value.data.pageCollection.items);
-}
+export const getPageCollection = (): Promise<ContentfulPage[]> => {
+  return fetch(CONTENTFUL_DELIVERY_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${import.meta.env.VITE_CONTENTFUL_PREVIEW_TOKEN}`,
+    },
+    body: JSON.stringify({ query }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((jsonResponse) => {
+      console.log("jsonResponse", jsonResponse);
+      return jsonResponse.data.pageCollection.items;
+    });
+};

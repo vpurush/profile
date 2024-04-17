@@ -25,6 +25,10 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env:
+          VITE_CONTENTFUL_ENVIRONMENT: ${{ secrets.VITE_CONTENTFUL_ENVIRONMENT }}
+          VITE_CONTENTFUL_PREVIEW_TOKEN: ${{ secrets.VITE_CONTENTFUL_PREVIEW_TOKEN }}
+          VITE_CONTENTFUL_SPACE_ID: ${{ secrets.VITE_CONTENTFUL_SPACE_ID }}
 
       - name: Install AWS CDK
         run: npm i -g aws-cdk
