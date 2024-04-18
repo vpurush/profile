@@ -7,10 +7,10 @@ import { getPageCollection } from "./components/page/get-pages";
 
 
 export default function App() {
-  const [pages] = createResource(async () => {
-    const pageC = await getPageCollection();
-    return pageC;
-  });
+  // const [pages] = createResource(async () => {
+  //   const pageC = await getPageCollection();
+  //   return pageC;
+  // });
 
 
   return (
@@ -18,7 +18,8 @@ export default function App() {
       root={(props) => (
         <MetaProvider>
           <Suspense>
-            <span>{pages()?.map(p => p.title).join(",")}</span>
+            {/* <span>{pages()?.map(p => p.title).join(",")}</span> */}
+            {props.children}
           </Suspense>
         </MetaProvider>
       )}
