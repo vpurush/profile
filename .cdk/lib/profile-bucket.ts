@@ -30,7 +30,8 @@ export class ProfileBucket extends Construct {
       {
         destinationBucket: this.bucket,
         sources: [s3Deploy.Source.asset("../.output/public")],
-        distribution: props.distribution
+        distribution: props.distribution,
+        distributionPaths: ["/*"]
       }
     );
   }
