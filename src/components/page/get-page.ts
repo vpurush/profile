@@ -2,18 +2,9 @@ import {
   CONTENTFUL_DELIVERY_URL,
 } from "~/utils/constant";
 import { prefixSlash } from "~/utils/prefixSlash";
+import { pageQuery } from "./page-query";
 import { ContentfulPage } from "./types";
 
-const query = `
-  query($slug: String!) {
-    pageCollection (preview: true, where: {slug: $slug}) {
-      items {
-        title
-        slug
-      }
-    }
-  }
-`;
 
 export const getPage = (slug: string): Promise<ContentfulPage | undefined> => {
   return fetch(CONTENTFUL_DELIVERY_URL, {
@@ -23,7 +14,7 @@ export const getPage = (slug: string): Promise<ContentfulPage | undefined> => {
       Authorization: `Bearer ${import.meta.env.VITE_CONTENTFUL_PREVIEW_TOKEN}`,
     },
     body: JSON.stringify({
-      query,
+      query: pageQuery,
       variables: {
         'slug': prefixSlash(slug),
       },

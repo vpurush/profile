@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.9.11",
+    "@contentful/rich-text-html-renderer": "^16.3.5",
     "@solidjs/meta": "^0.29.2",
     "@solidjs/router": "^0.13.1",
     "@solidjs/start": "^1.0.0-rc.0",

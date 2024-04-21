@@ -1,23 +1,18 @@
-import { Title } from "@solidjs/meta";
 import { useParams } from "@solidjs/router";
 import { createResource } from "solid-js";
-import Counter from "~/components/Counter";
 import { getPage } from "~/components/page/get-page";
+import Page from "~/components/page/page-component";
+import { pageDecorator } from "~/components/page/page-decorator";
 
-export default function Home() {
-
+export default function SlugRenderer() {
   const [page] = createResource(async () => {
     const params = useParams();
-    const pageC = await getPage(params.slug);
-    return pageC;
+    const contentfulPage = await getPage(params.slug);
+    return contentfulPage ? pageDecorator(contentfulPage) : undefined;
   });
 
   return page() ? (
-    <main>
-      <Title>{page()?.title}</Title>
-      <h2>{page()?.title}</h2>
-      <p>{useParams().slug}</p>
-    </main>
+    <Page {...page()!} />
   ) : (
     <span> Not found </span>
   );
