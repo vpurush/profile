@@ -1,0 +1,52 @@
+name: CDK Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+jobs:
+  aws_cdk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies for project
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+        env:
+          VITE_CONTENTFUL_ENVIRONMENT: ${{ secrets.VITE_CONTENTFUL_ENVIRONMENT }}
+          VITE_CONTENTFUL_PREVIEW_TOKEN: ${{ secrets.VITE_CONTENTFUL_PREVIEW_TOKEN }}
+          VITE_CONTENTFUL_SPACE_ID: ${{ secrets.VITE_CONTENTFUL_SPACE_ID }}
+
+      - name: Install AWS CDK
+        run: npm i -g aws-cdk
+
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: "ap-southeast-2"
+
+      - name: Deploying...
+        run: |
+          cd .cdk
+          pwd
+          echo "Installing dependencies in .cdk"
+          npm install
+          echo "Synth stack"
+          cdk synth
+          echo "Deploy stack"
+          cdk deploy --all --require-approval never
