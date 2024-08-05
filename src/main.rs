@@ -62,6 +62,8 @@ pub fn main() {
 // /// - https://github.com/awslabs/aws-lambda-rust-runtime/tree/main/examples
 // async fn function_handler(_event: Request) -> Result<Response<Body>, Error> {
 //     // Extract some useful information from the request
+//     // logging::log!("_event {}", _event);
+//     println!("_event {:?}", _event);
 
 //     // Return something that implements IntoResponse.
 //     // It will be serialized to the right response event automatically by the runtime
