@@ -1,5 +1,5 @@
 use crate::error_template::{AppError, ErrorTemplate};
-use crate::components::page::pageComponent::{PageComponent};
+use crate::components::page::page_component::{PageComponent};
 use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;

@@ -1,1 +1,2 @@
-pub mod pageComponent;
+pub mod page_component;
+mod get_page;

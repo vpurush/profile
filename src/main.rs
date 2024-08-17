@@ -1,3 +1,5 @@
+use profile::components::page::page_component::PageComponent;
+
 #[cfg(feature = "ssr")]
 #[tokio::main]
 async fn main() {
@@ -49,6 +51,10 @@ async fn main() {
 
 #[cfg(not(feature = "ssr"))]
 pub fn main() {
+    // use leptos::create_resource;
+    print!("page_component {:?}", PageComponent)
+    // let a = create_resource((), || {});
+    // a.
     // no client-side main function
     // unless we want this to work with e.g., Trunk for a purely client-side app
     // see lib.rs for hydration function instead
