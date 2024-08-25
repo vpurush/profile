@@ -2,6 +2,8 @@ use crate::common::types::{AEMResponse, AEMResponseItems};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::error::Error;
+use crate::common::application_error::ApplicationError;
+use crate::common::query_contentful::{query_contentful, ContentfulQueryPostData};
 
 // #[derive(Serialize, Deserialize, Debug)]
 // struct PanelsCollection {
@@ -25,13 +27,7 @@ pub struct PageCollection {
 struct PostVariables {
     slug: String,
 }
-#[derive(Debug, Serialize, Deserialize)]
-struct Post {
-    query: String,
-    variables: PostVariables,
-}
-
-pub async fn get_page(slug: String) -> Result<AEMResponse<PageCollection>, Box<dyn Error>> {
+pub async fn get_page(slug: String) -> Result<PageCollection, ApplicationError> {
     let page_query = r#"
 query($slug: String!) {
   pageCollection (preview: true, where: {slug: $slug}) {
@@ -48,42 +44,24 @@ query($slug: String!) {
 }
 "#;
 
-    let postData = Post {
+    let postData = ContentfulQueryPostData {
         query: page_query.to_string(),
         variables: PostVariables { slug },
     };
 
-    let contentful_url = crate::common::constants::get_constants()?.CONTENTFUL_DELIVERY_URL;
-    let contentful_token = crate::common::constants::get_constants()?.CONTENTFUL_PREVIEW_TOKEN;
 
-    println!("contentful_url {} contentful_token {}", contentful_url, contentful_token);
-
-    let contentful_call = reqwest::Client::new()
-        .post(contentful_url)
-        .header("Authorization", format!("Bearer {}", contentful_token))
-        .json(&postData)
-        .send()
-        .await.unwrap();
-
-    let contentful_json = match contentful_call.error_for_status_ref() {
-        Ok(_) => contentful_call.json::<AEMResponse<PageCollection>>()
-            .await,
-        Err(error) => {
-            println!("Contentful call failed {}", contentful_call.text().await.unwrap());
-            Err(error)
-        }
-    };
+    let page_collection = query_contentful::<PageCollection, PostVariables>(postData).await?;
 
 
-    let response = match contentful_json {
-        Ok(response) => Ok(response),
-        Err(error) => {
-            println!("Error occurred in get_page {}", error);
-            Err(error.into())
-        }
-    };
-    println!("response {:?}", response);
-    response
+    // let response = match contentful_json {
+    //     Ok(response) => Ok(response),
+    //     Err(error) => {
+    //         println!("Error occurred in get_page {}", error);
+    //         Err(error.into())
+    //     }
+    // };
+    println!("response {:?}", page_collection);
+    Ok(page_collection)
 
     // Ok(AEMResponse {
     //     data: PageCollection {

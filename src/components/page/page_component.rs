@@ -6,7 +6,7 @@ use crate::components::page::get_page::{get_page, ContentfulPage};
 #[server(prefix = "/api")]
 pub async fn get_page_by_slug(slug: String) -> Result<ContentfulPage, ServerFnError> {
     match get_page(slug).await {
-        Ok(pageCollection) => Ok(pageCollection.data.page_collection.items.into_iter().next().unwrap()),
+        Ok(page_collection_response) => Ok(page_collection_response.page_collection.items.into_iter().next().unwrap()),
         Err(error) =>  {
             println!("Server error {}", error);
             Err(ServerFnError::ServerError(error.to_string()))
