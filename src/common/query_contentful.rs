@@ -26,8 +26,15 @@ pub async fn query_contentful<ReturnType: DeserializeOwned, QueryVariableType: S
         .await?;
 
     match contentful_call.error_for_status_ref() {
-        Ok(_) => Ok(contentful_call.json::<AEMResponse<ReturnType>>()
-            .await?.data),
+        Ok(_) => {
+            match contentful_call.json::<AEMResponse<ReturnType>>().await {
+                Ok(response) => Ok(response.data),
+                Err(err) => {
+                    println!("Contentful call succeeded but json parsing failed with error: {}. Body: {}", err, err.source().unwrap());
+                    Err(ApplicationError::ReqwestError(err))
+                }
+            }
+        },
         Err(error) => {
             println!("Contentful call failed {}", contentful_call.text().await?);
             Err(ApplicationError::ReqwestError(error))

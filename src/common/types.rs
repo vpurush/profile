@@ -7,5 +7,5 @@ pub struct AEMResponse<T> {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct AEMResponseItems<T> {
-    pub items: [T;1],
+    pub items: Vec<T>,
 }
