@@ -10,5 +10,5 @@ pub enum Panel {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct PanelsCollection {
-    items: Vec<Panel>,
+    pub items: Vec<Panel>,
 }

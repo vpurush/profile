@@ -4,10 +4,10 @@ use crate::components::panel::types::PanelsCollection;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ContentfulPage {
-    title: String,
-    slug: String,
+    pub title: String,
+    pub slug: String,
     #[serde(rename(serialize = "panelsCollection", deserialize = "panelsCollection"))]
-    panels_collection: PanelsCollection,
+    pub panels_collection: PanelsCollection,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]

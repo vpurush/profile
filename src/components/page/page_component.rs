@@ -1,10 +1,12 @@
 use crate::components::page::get_page;
-use crate::components::page::get_page::{get_page};
+use crate::components::page::get_page::get_page;
+use crate::components::page::types::ContentfulPage;
+use crate::components::panel::panel_component::PanelComponent;
 use leptos::ServerFnError::ServerError;
 use leptos::{
-    component, create_resource, server, view, IntoView, ServerFnError, SignalGet, Suspense,
+    component, create_resource, server, view, CollectView, IntoView, ServerFnError, SignalGet,
+    Suspense,
 };
-use crate::components::page::types::ContentfulPage;
 
 #[server(prefix = "/api")]
 pub async fn get_page_by_slug(slug: String) -> Result<ContentfulPage, ServerFnError> {
@@ -13,9 +15,10 @@ pub async fn get_page_by_slug(slug: String) -> Result<ContentfulPage, ServerFnEr
             .page_collection
             .items
             .into_iter()
-            .next()) {
+            .next())
+        {
             Option::Some(page) => Ok(page),
-            Option::None => Err(ServerFnError::ServerError("Not found".to_string()))
+            Option::None => Err(ServerFnError::ServerError("Not found".to_string())),
         },
         Err(error) => {
             println!("Server error {}", error);
@@ -39,17 +42,25 @@ pub fn PageComponent() -> impl IntoView {
             get_page_by_slug(path).await
         },
     );
-    // let content = get_page("/".to_string());
-    // content.
-
-    // content_resource.
 
     view! {
         <Suspense fallback=|| view! { <p>"Loading..."</p>}>
         {move || {
-            content_resource.get().map(|data| {
-                view! {
-                    <div>{format!("{:?}", data)}</div>
+            content_resource.get().map(|contentful_page_result| {
+                match contentful_page_result {
+                    Ok(contentful_page) => view! {
+                        <div>
+                            <h1>{contentful_page.title}</h1>
+                            {contentful_page.panels_collection.items.into_iter().map(|panel_item| {
+                                view! {
+                                    <PanelComponent panel=panel_item />
+                                }
+                            }).collect_view()}
+                        </div>
+                    },
+                    Err(err) => view! {
+                        <div> Error occurred {format!("{:?}", err)}</div>
+                    }
                 }
             })
         }}
