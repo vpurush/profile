@@ -1,6 +1,8 @@
 use std::{error, fmt};
 use std::env::VarError;
+use std::str::FromStr;
 use reqwest::Error;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug)]
 pub enum ApplicationError {
@@ -8,6 +10,7 @@ pub enum ApplicationError {
     VarError(VarError),
     ReqwestError(Error),
     OriginalError(String),
+    NotFound,
 }
 
 impl fmt::Display for ApplicationError {
@@ -24,6 +27,9 @@ impl fmt::Display for ApplicationError {
             },
             ApplicationError::OriginalError(e) => {
                 write!(f, "Application Error of type OriginalError: {}", e)
+            },
+            ApplicationError::NotFound => {
+                write!(f, "Not found")
             }
         }
     }
@@ -35,7 +41,8 @@ impl error::Error for ApplicationError {
             ApplicationError::None => None,
             ApplicationError::VarError(e) => Some(e),
             ApplicationError::ReqwestError(e) => Some(e),
-            ApplicationError::OriginalError(e) => None
+            ApplicationError::OriginalError(e) => None,
+            ApplicationError::NotFound => None,
         }
     }
 }
@@ -49,5 +56,12 @@ impl From<VarError> for ApplicationError {
 impl From<reqwest::Error> for ApplicationError {
     fn from(err: reqwest::Error) -> ApplicationError {
         ApplicationError::ReqwestError(err)
+    }
+}
+
+impl FromStr for ApplicationError {
+    type Err = ();
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Ok(ApplicationError::OriginalError(String::from(s)))
     }
 }

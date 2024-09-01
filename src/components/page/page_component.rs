@@ -1,3 +1,4 @@
+use crate::common::application_error::ApplicationError;
 use crate::components::page::get_page;
 use crate::components::page::get_page::get_page;
 use crate::components::page::types::ContentfulPage;
@@ -18,7 +19,8 @@ pub async fn get_page_by_slug(slug: String) -> Result<ContentfulPage, ServerFnEr
             .next())
         {
             Option::Some(page) => Ok(page),
-            Option::None => Err(ServerFnError::ServerError("Not found".to_string())),
+            // Option::None => Err(ServerFnError::ServerError("Not found".to_string())),
+            Option::None => Err(ServerFnError::ServerError(String::from("Not Found"))),
         },
         Err(error) => {
             println!("Server error {}", error);
@@ -58,9 +60,25 @@ pub fn PageComponent() -> impl IntoView {
                             }).collect_view()}
                         </div>
                     },
-                    Err(err) => view! {
-                        <div> Error occurred {format!("{:?}", err)}</div>
-                    }
+                    Err(err) =>
+                        match err {
+                            ServerFnError::ServerError(s) => {
+                                if s == "Not Found" {
+                                    view! {
+                                        <div>Page not found</div>
+                                    }
+                                } else {
+                                    view! {
+                                        <div> Error occurred {format!("{:?}", s)}</div>
+                                    }
+                                }
+                            }
+                            _ => {
+                                view! {
+                                    <div> Error occurred {format!("{:?}", err)}</div>
+                                }
+                            }
+                        },
                 }
             })
         }}
