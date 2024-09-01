@@ -1,57 +1,42 @@
+use crate::common::application_error::ApplicationError;
+use crate::common::query_contentful::{query_contentful, ContentfulQueryPostData};
 use crate::common::types::{AEMResponse, AEMResponseItems};
+use crate::components::page::types::PageCollection;
+use crate::components::panel::get_panel::{get_panel_query, get_panels_collection_query};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::error::Error;
-use crate::common::application_error::ApplicationError;
-use crate::common::query_contentful::{query_contentful, ContentfulQueryPostData};
-
-// #[derive(Serialize, Deserialize, Debug)]
-// struct PanelsCollection {
-//     items: [HashMap<String, String>],
-// }
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct ContentfulPage {
-    title: String,
-    slug: String,
-    // panels_collection: PanelsCollection,
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct PageCollection {
-
-    #[serde(rename(serialize = "pageCollection", deserialize = "pageCollection"))]
-    pub page_collection: AEMResponseItems<ContentfulPage>,
-}
 
 #[derive(Debug, Serialize, Deserialize)]
 struct PostVariables {
     slug: String,
 }
-pub async fn get_page(slug: String) -> Result<PageCollection, ApplicationError> {
-    let page_query = r#"
-query($slug: String!) {
-  pageCollection (preview: true, where: {slug: $slug}) {
-    items {
-      title
-      slug
-      panelsCollection {
-        items {
-          __typename
-        }
-      }
-    }
-  }
-}
-"#;
 
+pub fn get_page_query() -> String {
+    format!(
+        r#"
+        query($slug: String!) {{
+          pageCollection (preview: true, where: {{slug: $slug}}) {{
+            items {{
+              title
+              slug
+              panelsCollection {{
+                {}
+              }}
+            }}
+          }}
+        }}"#,
+        get_panels_collection_query()
+    )
+}
+pub async fn get_page(slug: String) -> Result<PageCollection, ApplicationError> {
+    println!("query {}", get_page_query());
     let postData = ContentfulQueryPostData {
-        query: page_query.to_string(),
+        query: get_page_query(),
         variables: PostVariables { slug },
     };
 
-
     let page_collection = query_contentful::<PageCollection, PostVariables>(postData).await?;
-
 
     // let response = match contentful_json {
     //     Ok(response) => Ok(response),

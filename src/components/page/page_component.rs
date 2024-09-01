@@ -1,9 +1,10 @@
 use crate::components::page::get_page;
-use crate::components::page::get_page::{get_page, ContentfulPage};
+use crate::components::page::get_page::{get_page};
 use leptos::ServerFnError::ServerError;
 use leptos::{
     component, create_resource, server, view, IntoView, ServerFnError, SignalGet, Suspense,
 };
+use crate::components::page::types::ContentfulPage;
 
 #[server(prefix = "/api")]
 pub async fn get_page_by_slug(slug: String) -> Result<ContentfulPage, ServerFnError> {

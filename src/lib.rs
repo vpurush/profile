@@ -4,6 +4,7 @@ pub mod components;
 pub mod common;
 #[cfg(feature = "ssr")]
 pub mod fileserv;
+pub mod contentful_richtext_renderer;
 
 #[cfg(feature = "hydrate")]
 #[wasm_bindgen::prelude::wasm_bindgen]
