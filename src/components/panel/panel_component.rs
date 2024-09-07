@@ -3,12 +3,12 @@ use leptos::{
     component, create_resource, server, view, IntoView, ServerFnError, SignalGet, Suspense,
 };
 use crate::components::content_panel::content_panel_component::ContentPanelComponent;
-use crate::components::panel::types::Panel;
+use crate::components::panel::types::ContentfulPanel;
 
 #[component]
-pub fn PanelComponent(panel: Panel) -> impl IntoView {
+pub fn PanelComponent(panel: ContentfulPanel) -> impl IntoView {
     match panel {
-        Panel::ContentPanel(content_panel) => view! {
+        ContentfulPanel::ContentPanel(content_panel) => view! {
             <ContentPanelComponent content_panel=content_panel />
         }
     }

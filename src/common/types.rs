@@ -1,11 +1,11 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct AEMResponse<T> {
+pub struct ContentfulResponse<T> {
     pub data: T,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct AEMResponseItems<T> {
+pub struct ContentfulResponseItems<T> {
     pub items: Vec<T>,
 }

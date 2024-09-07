@@ -1,17 +1,17 @@
 use serde::{Deserialize, Serialize};
-use crate::common::types::AEMResponseItems;
-use crate::components::panel::types::PanelsCollection;
+use crate::common::types::ContentfulResponseItems;
+use crate::components::panel::types::ContentfulPanelsCollection;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ContentfulPage {
     pub title: String,
     pub slug: String,
     #[serde(rename(serialize = "panelsCollection", deserialize = "panelsCollection"))]
-    pub panels_collection: PanelsCollection,
+    pub panels_collection: ContentfulPanelsCollection,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct PageCollection {
+pub struct ContentfulPageCollection {
     #[serde(rename(serialize = "pageCollection", deserialize = "pageCollection"))]
-    pub page_collection: AEMResponseItems<ContentfulPage>,
+    pub page_collection: ContentfulResponseItems<ContentfulPage>,
 }

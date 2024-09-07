@@ -1,7 +1,7 @@
 use crate::common::application_error::ApplicationError;
 use crate::common::query_contentful::{query_contentful, ContentfulQueryPostData};
-use crate::common::types::{AEMResponse, AEMResponseItems};
-use crate::components::page::types::PageCollection;
+use crate::common::types::{ContentfulResponse, ContentfulResponseItems};
+use crate::components::page::types::ContentfulPageCollection;
 use crate::components::panel::get_panel::{get_panel_query, get_panels_collection_query};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
@@ -29,14 +29,14 @@ pub fn get_page_query() -> String {
         get_panels_collection_query()
     )
 }
-pub async fn get_page(slug: String) -> Result<PageCollection, ApplicationError> {
+pub async fn get_page(slug: String) -> Result<ContentfulPageCollection, ApplicationError> {
     println!("query {}", get_page_query());
     let postData = ContentfulQueryPostData {
         query: get_page_query(),
         variables: PostVariables { slug },
     };
 
-    let page_collection = query_contentful::<PageCollection, PostVariables>(postData).await?;
+    let page_collection = query_contentful::<ContentfulPageCollection, PostVariables>(postData).await?;
 
     // let response = match contentful_json {
     //     Ok(response) => Ok(response),

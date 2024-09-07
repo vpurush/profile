@@ -2,7 +2,7 @@ use std::error::Error;
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
 use crate::common::application_error::ApplicationError;
-use crate::common::types::AEMResponse;
+use crate::common::types::ContentfulResponse;
 
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -27,7 +27,7 @@ pub async fn query_contentful<ReturnType: DeserializeOwned, QueryVariableType: S
 
     match contentful_call.error_for_status_ref() {
         Ok(_) => {
-            match contentful_call.json::<AEMResponse<ReturnType>>().await {
+            match contentful_call.json::<ContentfulResponse<ReturnType>>().await {
                 Ok(response) => Ok(response.data),
                 Err(err) => {
                     println!("Contentful call succeeded but json parsing failed with error: {}. Body: {}", err, err.source().unwrap());
