@@ -1,7 +1,7 @@
 use crate::common::application_error::ApplicationError;
 use crate::components::page::get_page;
-use crate::components::page::get_page::get_page;
-use crate::components::page::types::ContentfulPage;
+use crate::components::page::get_page::get_page_collection;
+use crate::components::page::types::{ContentfulPage, Page};
 use crate::components::panel::panel_component::PanelComponent;
 use leptos::ServerFnError::ServerError;
 use leptos::{
@@ -10,16 +10,14 @@ use leptos::{
 };
 
 #[server(prefix = "/api")]
-pub async fn get_page_by_slug(slug: String) -> Result<ContentfulPage, ServerFnError> {
-    match get_page(slug).await {
+pub async fn get_page_by_slug(slug: String) -> Result<Page, ServerFnError> {
+    match get_page_collection(slug).await {
         Ok(page_collection_response) => match (page_collection_response
             .page_collection
-            .items
             .into_iter()
             .next())
         {
             Option::Some(page) => Ok(page),
-            // Option::None => Err(ServerFnError::ServerError("Not found".to_string())),
             Option::None => Err(ServerFnError::ServerError(String::from("Not Found"))),
         },
         Err(error) => {
@@ -27,7 +25,6 @@ pub async fn get_page_by_slug(slug: String) -> Result<ContentfulPage, ServerFnEr
             Err(ServerFnError::ServerError(error.to_string()))
         }
     }
-    // Ok("This is a Page Component that fetches content from server.".to_string())
 }
 
 #[component]
@@ -48,12 +45,12 @@ pub fn PageComponent() -> impl IntoView {
     view! {
         <Suspense fallback=|| view! { <p>"Loading..."</p>}>
         {move || {
-            content_resource.get().map(|contentful_page_result| {
-                match contentful_page_result {
-                    Ok(contentful_page) => view! {
+            content_resource.get().map(|page_result| {
+                match page_result {
+                    Ok(page) => view! {
                         <div>
-                            <h1>{contentful_page.title}</h1>
-                            {contentful_page.panels_collection.items.into_iter().map(|panel_item| {
+                            <h1>{page.title}</h1>
+                            {page.panels_collection.into_iter().map(|panel_item| {
                                 view! {
                                     <PanelComponent panel=panel_item />
                                 }
