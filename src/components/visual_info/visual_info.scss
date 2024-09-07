@@ -1,0 +1,15 @@
+.visual-info {
+    &.left-align {
+        text-align: left;
+    }
+
+    &.right-align {
+        text-align: right;
+    }
+    &.justified-align {
+        text-align: justified;
+    }
+    &.center-align {
+        text-align: center;
+    }
+}
