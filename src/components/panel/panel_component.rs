@@ -4,12 +4,15 @@ use leptos::{
 };
 use crate::components::content_panel::content_panel_component::ContentPanelComponent;
 use crate::components::panel::types::{ContentfulPanel, Panel};
+use crate::components::visual_info::visual_info_component::VisualInfoComponent;
 
 #[component]
 pub fn PanelComponent(panel: Panel) -> impl IntoView {
-    match panel {
+     match panel {
         Panel::ContentPanel(content_panel) => view! {
-            <ContentPanelComponent content_panel=content_panel />
+            <VisualInfoComponent visual_info={content_panel.visual_info.clone()}>
+                <ContentPanelComponent content_panel=content_panel />
+            </VisualInfoComponent>
         }
     }
 }

@@ -30,7 +30,8 @@ pub fn App() -> impl IntoView {
         }>
             <main>
                 <Routes>
-                    <Route path="/*any" view=PageComponent/>
+                    <Route path="/" view=PageComponent/>
+                    <Route path="/:path" view=PageComponent/>
                 </Routes>
             </main>
         </Router>

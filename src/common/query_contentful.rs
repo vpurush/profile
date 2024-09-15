@@ -1,4 +1,5 @@
 use std::error::Error;
+use std::fmt::Debug;
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
 use crate::common::application_error::ApplicationError;
@@ -6,17 +7,18 @@ use crate::common::types::ContentfulResponse;
 
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct ContentfulQueryPostData<T: Serialize> {
+pub struct ContentfulQueryPostData<T: Serialize + Debug> {
     pub query: String,
     pub variables: T,
 }
 
-pub async fn query_contentful<ReturnType: DeserializeOwned, QueryVariableType: Serialize>(post_data: ContentfulQueryPostData<QueryVariableType>) -> Result<ReturnType, ApplicationError>
+pub async fn query_contentful<ReturnType: DeserializeOwned, QueryVariableType: Serialize + Debug>(post_data: ContentfulQueryPostData<QueryVariableType>) -> Result<ReturnType, ApplicationError>
 {
     let contentful_url = crate::common::constants::get_constants()?.CONTENTFUL_DELIVERY_URL;
     let contentful_token = crate::common::constants::get_constants()?.CONTENTFUL_PREVIEW_TOKEN;
 
     println!("contentful_url {} contentful_token {}", contentful_url, contentful_token);
+    println!("post_data {:?}", post_data);
 
     let contentful_call = reqwest::Client::new()
         .post(contentful_url)

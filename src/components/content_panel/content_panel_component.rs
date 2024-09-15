@@ -10,8 +10,6 @@ use leptos::{
 #[component]
 pub fn ContentPanelComponent(content_panel: ContentPanel) -> impl IntoView {
     view! {
-        <VisualInfoComponent visual_info={content_panel.visual_info}>
-            <div inner_html=render_document_to_html(content_panel.content.json)></div>
-        </VisualInfoComponent>
+        <div inner_html=render_document_to_html(content_panel.content.json)></div>
     }
 }
