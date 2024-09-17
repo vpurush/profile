@@ -47,3 +47,10 @@
     @include px($spacing);
     @include py($spacing);
 }
+
+@mixin embed-font() {
+  font-family: var(--font-family);
+  font-optical-sizing: var(--base-font-optical-sizing);
+  font-weight: var(--base-font-weight);
+  font-style: var(--base-font-style);
+}

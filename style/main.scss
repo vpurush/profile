@@ -2,8 +2,7 @@
 @import "./mixins.scss";
 
 body {
-	font-family: sans-serif;
-// 	text-align: center;
+    @include embed-font();
 }
 
 @import "../src/components/visual_info/visual_info.scss";
