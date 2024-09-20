@@ -1,10 +1,12 @@
 use serde::{Deserialize, Serialize, };
 use crate::components::content_panel::types::{ContentPanel, ContentfulContentPanel};
+use crate::components::picture_panel::types::{ContentfulPicturePanel, PicturePanel};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(tag = "typename")]
 pub enum ContentfulPanel {
-    ContentPanel(ContentfulContentPanel)
+    ContentPanel(ContentfulContentPanel),
+    PicturePanel(ContentfulPicturePanel)
 }
 
 
@@ -15,7 +17,8 @@ pub struct ContentfulPanelsCollection {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub enum Panel {
-    ContentPanel(ContentPanel)
+    ContentPanel(ContentPanel),
+    PicturePanel(PicturePanel)
 }
 // #[derive(Serialize, Deserialize, Debug, Clone)]
 // pub struct PanelsCollection {

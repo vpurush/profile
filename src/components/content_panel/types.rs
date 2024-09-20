@@ -8,7 +8,7 @@ pub struct ContentfulContentPanel {
     pub title: String,
     pub content: ContentfulRichTextContent,
     #[serde(rename(serialize = "visualInfo", deserialize = "visualInfo"))]
-    pub visual_info: ContentfulVisualInfo
+    pub visual_info: Option<ContentfulVisualInfo>
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
