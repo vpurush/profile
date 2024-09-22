@@ -1,0 +1,5 @@
+.container {
+    max-width: 1200px;
+    @include px(4, 6, 0);
+    @include mx('auto');
+}

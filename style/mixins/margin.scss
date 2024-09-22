@@ -1,24 +1,24 @@
-@mixin mt($xs-value, $md-value, $xl-value) {
+@mixin mt($xs-value, $md-value: null, $xl-value: null) {
     @include generate-breakpoints-for-spacing-property('margin-top', $xs-value, $md-value, $xl-value);
 }
-@mixin mb($xs-value, $md-value, $xl-value) {
+@mixin mb($xs-value, $md-value: null, $xl-value: null) {
     @include generate-breakpoints-for-spacing-property('margin-bottom', $xs-value, $md-value, $xl-value);
 }
-@mixin ml($xs-value, $md-value, $xl-value) {
+@mixin ml($xs-value, $md-value: null, $xl-value: null) {
     @include generate-breakpoints-for-spacing-property('margin-left', $xs-value, $md-value, $xl-value);
 }
-@mixin mr($xs-value, $md-value, $xl-value) {
+@mixin mr($xs-value, $md-value: null, $xl-value: null) {
     @include generate-breakpoints-for-spacing-property('margin-right', $xs-value, $md-value, $xl-value);
 }
-@mixin mx($xs-value, $md-value, $xl-value) {
+@mixin mx($xs-value, $md-value: null, $xl-value: null) {
     @include ml($xs-value, $md-value, $xl-value);
     @include mr($xs-value, $md-value, $xl-value);
 }
-@mixin my($xs-value, $md-value, $xl-value) {
+@mixin my($xs-value, $md-value: null, $xl-value: null) {
     @include mt($xs-value, $md-value, $xl-value);
     @include mb($xs-value, $md-value, $xl-value);
 }
-@mixin m($xs-value, $md-value, $xl-value) {
+@mixin m($xs-value, $md-value: null, $xl-value: null) {
     @include mx($xs-value, $md-value, $xl-value);
     @include my($xs-value, $md-value, $xl-value);
 }

@@ -48,7 +48,7 @@ pub fn PageComponent() -> impl IntoView {
             content_resource.get().map(|page_result| {
                 match page_result {
                     Ok(page) => view! {
-                        <div>
+                        <div class="container">
                             <h1>{page.title}</h1>
                             {page.panels_collection.into_iter().map(|panel_item| {
                                 view! {

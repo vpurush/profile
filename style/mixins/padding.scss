@@ -1,24 +1,24 @@
-@mixin pt($spacing-xs, $spacing-md, $spacing-xl) {
+@mixin pt($xs-value, $md-value: null, $xl-value: null) {
     @include generate-breakpoints-for-spacing-property('padding-top', $xs-value, $md-value, $xl-value);
 }
-@mixin pb($spacing) {
+@mixin pb($xs-value, $md-value: null, $xl-value: null) {
     @include generate-breakpoints-for-spacing-property('padding-bottom', $xs-value, $md-value, $xl-value);
 }
-@mixin pl($spacing) {
+@mixin pl($xs-value, $md-value: null, $xl-value: null) {
     @include generate-breakpoints-for-spacing-property('padding-left', $xs-value, $md-value, $xl-value);
 }
-@mixin pr($spacing) {
+@mixin pr($xs-value, $md-value: null, $xl-value: null) {
     @include generate-breakpoints-for-spacing-property('padding-right', $xs-value, $md-value, $xl-value);
 }
-@mixin px($spacing) {
-    @include pl($spacing);
-    @include pr($spacing);
+@mixin px($xs-value, $md-value: null, $xl-value: null) {
+    @include pl($xs-value, $md-value, $xl-value);
+    @include pr($xs-value, $md-value, $xl-value);
 }
-@mixin py($spacing) {
-    @include pt($spacing);
-    @include pb($spacing);
+@mixin py($xs-value, $md-value: null, $xl-value: null) {
+    @include pt($xs-value, $md-value, $xl-value);
+    @include pb($xs-value, $md-value, $xl-value);
 }
-@mixin p($spacing) {
-    @include px($spacing);
-    @include py($spacing);
+@mixin p($xs-value, $md-value: null, $xl-value: null) {
+    @include px($xs-value, $md-value, $xl-value);
+    @include py($xs-value, $md-value, $xl-value);
 }

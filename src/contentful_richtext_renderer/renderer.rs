@@ -41,7 +41,7 @@ fn render_node_to_html(node: ContentfulRichTextNode) -> String {
             format!("<h6>{}</h6>", render_node_list_to_html(heading_node.content))
         },
         ContentfulRichTextNode::Hyperlink(hyperlink_node) => {
-            format!("<a href={}>{}</h1>", hyperlink_node.data.uri, render_node_list_to_html(hyperlink_node.content))
+            format!("<a href={}>{}</a>", hyperlink_node.data.uri, render_node_list_to_html(hyperlink_node.content))
         },
 
     }

@@ -8,4 +8,6 @@ body {
     @include embed-font();
 }
 
+@import "./utils.scss";
 @import "../src/components/visual_info/visual_info.scss";
+@import "../src/components/picture_panel/picture_panel.scss";

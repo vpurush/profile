@@ -4,6 +4,8 @@ use crate::components::picture_panel::types::PicturePanel;
 #[component]
 pub fn PicturePanelComponent(picture_panel: PicturePanel) -> impl IntoView {
     view! {
-        <img src={picture_panel.image.url} />
+        <div class="picture-panel">
+            <img class="image" src={picture_panel.image.url} />
+        </div>
     }
 }
