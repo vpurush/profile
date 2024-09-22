@@ -1,0 +1,35 @@
+@mixin generate-breakpoints-for-property($property-name, $xs-value, $md-value, $xl-value) {
+    #{$property-name}: $xs-value;
+
+    @if variable-exists(md-value) and variable-exists(xl-value) {
+        @media (min-width: $breakpoint-md) and (max-width: $breakpoint-xl) {
+            #{$property-name}: $md-value;
+        }
+    }
+
+    @if variable-exists(md-value) and not variable-exists(xl-value) {
+        @media (min-width: $breakpoint-md) {
+            #{$property-name}: $md-value;
+        }
+    }
+
+    @if variable-exists(xl-value) {
+        @media (min-width: $breakpoint-xl) {
+            #{$property-name}: $xl-value;
+        }
+    }
+}
+
+@mixin generate-breakpoints-for-spacing-property($property-name, $xs-value, $md-value, $xl-value) {
+    @if not variable-exists(md-value) and not variable-exists(xl-value) {
+        @include generate-breakpoints-for-property($property-name, var(--spacing-#{$xs-value}));
+    }
+
+    @if not variable-exists(xl-value) {
+        @include generate-breakpoints-for-property($property-name, var(--spacing-#{$xs-value}), var(--spacing-#{$md-value}));
+    }
+
+    @if variable-exists(xl-value) {
+        @include generate-breakpoints-for-property($property-name, var(--spacing-#{$xs-value}), var(--spacing-#{$md-value}), var(--spacing-#{$xl-value}));
+    }
+}

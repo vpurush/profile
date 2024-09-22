@@ -1,5 +1,5 @@
 .visual-info {
-    @include mt(4);
+    @include mt(4, 5, 6);
 
     &.left-align {
         text-align: left;

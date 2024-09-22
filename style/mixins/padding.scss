@@ -1,0 +1,24 @@
+@mixin pt($spacing-xs, $spacing-md, $spacing-xl) {
+    @include generate-breakpoints-for-spacing-property('padding-top', $xs-value, $md-value, $xl-value);
+}
+@mixin pb($spacing) {
+    @include generate-breakpoints-for-spacing-property('padding-bottom', $xs-value, $md-value, $xl-value);
+}
+@mixin pl($spacing) {
+    @include generate-breakpoints-for-spacing-property('padding-left', $xs-value, $md-value, $xl-value);
+}
+@mixin pr($spacing) {
+    @include generate-breakpoints-for-spacing-property('padding-right', $xs-value, $md-value, $xl-value);
+}
+@mixin px($spacing) {
+    @include pl($spacing);
+    @include pr($spacing);
+}
+@mixin py($spacing) {
+    @include pt($spacing);
+    @include pb($spacing);
+}
+@mixin p($spacing) {
+    @include px($spacing);
+    @include py($spacing);
+}
