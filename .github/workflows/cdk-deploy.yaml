@@ -14,14 +14,19 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Change directory
+        run: |
+          cd .cdk
+          pwd
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v2
         with:
           node-version: 20
           cache: "npm"
 
-      - name: Install dependencies for project
-        run: npm install
+#      - name: Install dependencies for project
+#        run: npm install
 
 #      - name: Build project
 #        run: npm run build
@@ -46,7 +51,6 @@ jobs:
           CONTENTFUL_PREVIEW_TOKEN: ${{ secrets.VITE_CONTENTFUL_PREVIEW_TOKEN }}
           CONTENTFUL_SPACE_ID: ${{ secrets.VITE_CONTENTFUL_SPACE_ID }}
         run: |
-          cd .cdk
           pwd
           echo "Installing dependencies in .cdk"
           npm install
