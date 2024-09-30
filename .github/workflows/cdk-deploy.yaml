@@ -36,8 +36,8 @@ jobs:
 #          CONTENTFUL_PREVIEW_TOKEN: ${{ secrets.VITE_CONTENTFUL_PREVIEW_TOKEN }}
 #          CONTENTFUL_SPACE_ID: ${{ secrets.VITE_CONTENTFUL_SPACE_ID }}
 
-#      - name: Install AWS CDK
-#        run: npm i -g aws-cdk
+      - name: Install AWS CDK
+        run: npm i -g aws-cdk
 
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@master
