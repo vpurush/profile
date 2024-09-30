@@ -16,6 +16,16 @@ pub fn get_picture_panel_query() -> String {
     format!(
         "\
         ... on PicturePanel{{
+          {}
+        }}
+    ",
+        get_picture_panel_single_reference_query()
+    )
+}
+
+pub fn get_picture_panel_single_reference_query() -> String {
+    format!(
+        "\
           title
           imageCaption
           image {{
@@ -25,7 +35,6 @@ pub fn get_picture_panel_query() -> String {
             textAlignment
             backgroundColor
           }}
-        }}
     ",
         get_asset_query()
     )
