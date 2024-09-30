@@ -7,17 +7,25 @@ pub enum ContentfulVisualInfoTextAlign {
     Center,
     Justified
 }
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub enum ContentfulVisualInfoBackground {
+    Primary,
+    Secondary,
+    Tertiary,
+    None
+}
+
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ContentfulVisualInfo {
     #[serde(rename(serialize = "textAlignment", deserialize = "textAlignment"))]
     pub text_alignment: Vec<ContentfulVisualInfoTextAlign>,
     #[serde(rename(serialize = "backgroundColor", deserialize = "backgroundColor"))]
-    pub background_color: Vec<String>,
+    pub background_color: Vec<ContentfulVisualInfoBackground>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct VisualInfo {
     pub text_alignment: ContentfulVisualInfoTextAlign,
-    pub background_color: String,
+    pub background_color: ContentfulVisualInfoBackground,
 }

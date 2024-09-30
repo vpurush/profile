@@ -1,5 +1,5 @@
 .visual-info {
-    @include mt(4, 5, 6);
+    @include my(9, 10);
 
     &.left-align {
         text-align: left;
@@ -9,7 +9,7 @@
         text-align: right;
     }
     &.justified-align {
-        text-align: justified;
+        text-align: justify;
     }
     &.center-align {
         text-align: center;

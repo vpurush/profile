@@ -25,11 +25,11 @@ pub fn ContentMediaPanelComponent(content_media_panel: ContentMediaPanel) -> imp
 
 
     view! {
-        <div>
-            <div>
+        <div class="content-media-panel">
+            <div class="left-panel">
                 {{leftComponent}}
             </div>
-            <div>
+            <div class="right-panel">
                 {{rightComponent}}
             </div>
         </div>

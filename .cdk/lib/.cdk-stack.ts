@@ -27,6 +27,7 @@ export class ProfileLeptosStack extends cdk.Stack {
       bundling: {
         environment: {
           LEPTOS_OUTPUT_NAME: "profile",
+          CONTENTFUL_PREVIEW_TOKEN: process.env.CONTENTFUL_PREVIEW_TOKEN,
         },
         cargoLambdaFlags: [
           "--package=profile",

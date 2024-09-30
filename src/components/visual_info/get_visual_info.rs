@@ -1,6 +1,6 @@
 use crate::components::content_panel::types::{ContentPanel, ContentfulContentPanel};
 use crate::components::visual_info::types::ContentfulVisualInfoTextAlign::Left;
-use crate::components::visual_info::types::{ContentfulVisualInfo, VisualInfo};
+use crate::components::visual_info::types::{ContentfulVisualInfo, ContentfulVisualInfoBackground, VisualInfo};
 use serde::{Deserialize, Serialize};
 
 pub fn get_content_panel_query() -> String {
@@ -32,7 +32,7 @@ pub fn visual_info_decorator(contentful_visual_info: Option<ContentfulVisualInfo
         },
         None => VisualInfo {
             text_alignment: Left,
-            background_color: String::from("#FFFFFF"),
+            background_color: ContentfulVisualInfoBackground::None,
         },
     }
 }

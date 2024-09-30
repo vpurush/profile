@@ -1,0 +1,16 @@
+.content-media-panel {
+    display: flex;
+    flex-direction: row;
+
+    .left-panel {
+        flex: 1 0 50%;
+        @include p(4);
+        align-content: center;
+    }
+
+    .right-panel {
+        flex: 1 0 50%;
+        @include p(4);
+        align-content: center;
+    }
+}
