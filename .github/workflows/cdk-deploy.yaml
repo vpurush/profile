@@ -52,6 +52,7 @@ jobs:
           CONTENTFUL_PREVIEW_TOKEN: ${{ secrets.VITE_CONTENTFUL_PREVIEW_TOKEN }}
           CONTENTFUL_SPACE_ID: ${{ secrets.VITE_CONTENTFUL_SPACE_ID }}
         run: |
+          cd .cdk
           pwd
           echo "Installing dependencies in .cdk"
           npm install
