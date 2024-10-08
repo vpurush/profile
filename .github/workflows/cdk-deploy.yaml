@@ -41,9 +41,10 @@ jobs:
 
       - name: Install linux dependencies
         run: |
-          dpkg --add-architecture i386
-          apt-get update
-          apt-get install libssl-dev:i386
+          brew install openssl
+          # dpkg --add-architecture i386
+          # apt-get update
+          # apt-get install libssl-dev:i386
 
       - name: Install Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
