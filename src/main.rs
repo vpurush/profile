@@ -1,5 +1,6 @@
 use profile::components::page::page_component::PageComponent;
 
+#[allow(unused_imports)]
 #[cfg(feature = "ssr")]
 #[tokio::main]
 async fn main() {
