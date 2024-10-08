@@ -1776,6 +1776,7 @@ dependencies = [
  "leptos_meta",
  "leptos_router",
  "log",
+ "native-tls",
  "reqwest",
  "serde",
  "simple_logger",
