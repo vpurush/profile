@@ -50,6 +50,7 @@ async fn main() {
     }
 }
 
+#[allow(unused_imports)]
 #[cfg(not(feature = "ssr"))]
 pub fn main() {
     // use leptos::create_resource;
