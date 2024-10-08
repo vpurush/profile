@@ -50,6 +50,15 @@ jobs:
       - name: Install Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
 
+      - name: Install Cargo Lambda
+        uses: jaxxstorm/action-install-gh-release@v1.9.0
+        with:
+          repo: cargo-lambda/cargo-lambda
+          # Note: make sure you are using a recent version of cargo-lambda (the one below isn't kept in sync with new releases)
+          tag: v1.3.0 # Remove this if you want to grab always the latest version
+          platform: linux # Other valid options: 'windows' or 'darwin'
+          arch: x86_64 # Other valid options for linux: 'aarch64'
+
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@master
         with:
