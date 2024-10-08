@@ -41,6 +41,7 @@ jobs:
 
       - name: Install linux dependencies
         run: |
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" 
           brew install openssl
           # dpkg --add-architecture i386
           # apt-get update
