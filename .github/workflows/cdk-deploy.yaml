@@ -39,6 +39,9 @@ jobs:
       - name: Install AWS CDK
         run: npm i -g aws-cdk
 
+      - name: Install linux dependencies
+        run: sudo apt-get install libssl-dev:i386
+
       - name: Install Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
 
