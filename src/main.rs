@@ -1,6 +1,8 @@
+#![allow(unused_imports)]
+#![allow(non_snake_case)]
+#![allow(unused_variables)]
 use profile::components::page::page_component::PageComponent;
 
-#[allow(unused_imports)]
 #[cfg(feature = "ssr")]
 #[tokio::main]
 async fn main() {
@@ -50,7 +52,6 @@ async fn main() {
     }
 }
 
-#[allow(unused_imports)]
 #[cfg(not(feature = "ssr"))]
 pub fn main() {
     // use leptos::create_resource;

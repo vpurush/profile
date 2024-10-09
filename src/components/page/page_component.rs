@@ -12,10 +12,10 @@ use leptos::{
 #[server(prefix = "/api")]
 pub async fn get_page_by_slug(slug: String) -> Result<Page, ServerFnError> {
     match get_page_collection(slug).await {
-        Ok(page_collection_response) => match (page_collection_response
+        Ok(page_collection_response) => match page_collection_response
             .page_collection
             .into_iter()
-            .next())
+            .next()
         {
             Option::Some(page) => Ok(page),
             Option::None => Err(ServerFnError::ServerError(String::from("Not Found"))),
