@@ -1,3 +1,6 @@
+#![allow(unused_imports)]
+#![allow(non_snake_case)]
+#![allow(unused_variables)]
 pub mod app;
 pub mod error_template;
 pub mod components;
