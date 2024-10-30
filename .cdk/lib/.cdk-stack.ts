@@ -25,6 +25,7 @@ export class ProfileLeptosStack extends cdk.Stack {
     const rustFunction = new RustFunction(this, "ProfileLeptosRustFunction", {
       manifestPath: "../Cargo.toml",
       bundling: {
+        // forcedDockerBundling: true,
         environment: {
           LEPTOS_OUTPUT_NAME: "profile",
           CONTENTFUL_PREVIEW_TOKEN: process.env.CONTENTFUL_PREVIEW_TOKEN || "",

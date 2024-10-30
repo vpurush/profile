@@ -6,6 +6,9 @@ edition = "2021"
 [lib]
 crate-type = ["cdylib", "rlib"]
 
+[build-dependencies]
+bindgen = "0.65.1"
+
 [dependencies]
 axum = { version = "0.7", optional = true }
 console_error_panic_hook = "0.1"
@@ -25,8 +28,11 @@ tracing = { version = "0.1", optional = true }
 http = "1"
 axum-aws-lambda = { version = "0.8.0", optional = true }
 lambda_http = { version = "0.13", optional = true }
-native-tls = { version = "0.2.6", features = ["vendored"] }
-reqwest = { version = "0.12", features = ["json", "native-tls-vendored"] }
+#native-tls = { version = "0.2.6", features = ["vendored"] }
+reqwest = { version = "0.12", features = ["json", "rustls-tls"], default_features = false }
+#aws-lc-rs = { version = "1.10.0", features = ["bindgen"] }
+rustls = {  version = "0.23.14", features = ["ring"], default_features = false  }
+ring = { version = "0.17.7", features = ["wasm32_unknown_unknown_js"] }
 serde = { version = "1.0.204", features = ["derive"] }
 
 [features]
