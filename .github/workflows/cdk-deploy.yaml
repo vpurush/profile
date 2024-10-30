@@ -87,7 +87,7 @@ jobs:
           pwd
           echo "Installing dependencies in .cdk"
           npm install
-          echo "Synth stack"
-          npx cdk synth
+          # echo "Synth stack"
+          # npx cdk synth
           echo "Deploy stack"
           npx cdk deploy -- --all --require-approval never
