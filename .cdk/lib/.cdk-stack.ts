@@ -26,6 +26,9 @@ export class ProfileLeptosStack extends cdk.Stack {
       manifestPath: "../Cargo.toml",
       bundling: {
         forcedDockerBundling: true,
+        dockerOptions: {
+          user: "root"
+        },
         environment: {
           LEPTOS_OUTPUT_NAME: "profile",
           CONTENTFUL_PREVIEW_TOKEN: process.env.CONTENTFUL_PREVIEW_TOKEN || "",
@@ -37,6 +40,14 @@ export class ProfileLeptosStack extends cdk.Stack {
           "--features=ssr",
           "--release",
         ],
+        commandHooks: {
+          beforeBundling(inputDir: string, outputDir: string): string[] {
+            return [`apt update`, `apt install clang -y`, `cargo update -p wasm-bindgen --precise 0.2.92`, `cargo install --locked cargo-leptos@0.2.17`, `rustup target add wasm32-unknown-unknown`];
+          },
+          afterBundling(inputDir, outputDir) {
+            return [`cargo leptos build`]
+          },
+        }
       },
     });
 
