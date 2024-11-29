@@ -20,7 +20,7 @@ pub fn get_page_query() -> String {
             items {{
               title
               slug
-              panelsCollection (limit: 10) {{
+              panelsCollection (limit: 20) {{
                 {}
               }}
             }}

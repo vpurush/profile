@@ -41,11 +41,17 @@ pub fn get_picture_panel_single_reference_query() -> String {
 }
 
 pub fn asset_decorator(contentful_asset: ContentfulAsset) -> Asset {
-    Asset {
+    let mut asset = Asset {
         url: contentful_asset.url,
         height: contentful_asset.height,
         width: contentful_asset.width,
+    };
+    if let Some(width) = asset.width  {
+        if width > 1080 {
+            asset.url = format!("{}?w=1080", asset.url);
+        }
     }
+    asset
 }
 
 pub fn picture_panel_decorator(contentful_picture_panel: ContentfulPicturePanel) -> PicturePanel {

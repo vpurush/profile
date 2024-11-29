@@ -2,6 +2,7 @@
     overflow: hidden;
 
     .image {
+        max-height: 280px;
         width: 100%;
         object-fit: contain;
     }

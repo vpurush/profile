@@ -5,8 +5,8 @@ use crate::components::visual_info::types::{ContentfulVisualInfo, VisualInfo};
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ContentfulAsset {
     pub url: String,
-    pub width: u32,
-    pub height: u32,
+    pub width: Option<u32>,
+    pub height: Option<u32>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -23,8 +23,8 @@ pub struct ContentfulPicturePanel {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Asset {
     pub url: String,
-    pub width: u32,
-    pub height: u32,
+    pub width: Option<u32>,
+    pub height: Option<u32>,
 }
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct PicturePanel {

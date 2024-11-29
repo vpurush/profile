@@ -1,15 +1,16 @@
 .content-media-panel {
+    width: 100%;
     display: flex;
     flex-direction: row;
 
     .left-panel {
-        flex: 1 0 50%;
+        flex: 1 0 calc(50% - 32px);
         @include p(4);
         align-content: center;
     }
 
     .right-panel {
-        flex: 1 0 50%;
+        flex: 1 0 calc(50% - 32px);
         @include p(4);
         align-content: center;
     }
