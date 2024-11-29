@@ -9,6 +9,7 @@ body {
 }
 
 @import "./utils.scss";
+@import "../src/components/page/page.scss";
 @import "../src/components/visual_info/visual_info.scss";
 @import "../src/components/picture_panel/picture_panel.scss";
 @import "../src/components/content_media_panel/content_media_panel.scss";
