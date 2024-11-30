@@ -69,8 +69,8 @@ export class ProfileLeptosStack extends cdk.Stack {
 
     this.bucket = this.createS3Bucket("tempbucketforprofileleptos");
     const { distribution, cloudfrontOAI } = this.createCDN(
-      "",
-      "",
+      this.rootDomainName,
+      this.profileSubDomainName,
       this.bucket,
       this.functionUrl
     );
@@ -110,7 +110,7 @@ export class ProfileLeptosStack extends cdk.Stack {
       this,
       "ProfileLeptosDistribution",
       {
-        // domainNames: [domainName, profileSubDomainName],
+        domainNames: [domainName, profileSubDomainName],
         minimumProtocolVersion:
           awsCloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
         defaultBehavior: {
