@@ -7,6 +7,7 @@ import * as awsCloudfrontOrigins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as awsS3 from "aws-cdk-lib/aws-s3";
 import * as awsS3Deployment from "aws-cdk-lib/aws-s3-deployment";
 import * as awsIam from "aws-cdk-lib/aws-iam";
+import {Certificate, ICertificate, ValidationMethod} from "aws-cdk-lib/aws-certificatemanager";
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class ProfileLeptosStack extends cdk.Stack {
@@ -17,6 +18,7 @@ export class ProfileLeptosStack extends cdk.Stack {
   private distribution: awsCloudfront.Distribution;
   private cloudfrontOAI: awsCloudfront.OriginAccessIdentity;
   private functionUrl: awsLambda.FunctionUrl;
+  private certificate: ICertificate;
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -68,6 +70,8 @@ export class ProfileLeptosStack extends cdk.Stack {
     });
 
     this.bucket = this.createS3Bucket("tempbucketforprofileleptos");
+    this.getCertificate();
+
     const { distribution, cloudfrontOAI } = this.createCDN(
       this.rootDomainName,
       this.profileSubDomainName,
@@ -140,7 +144,7 @@ export class ProfileLeptosStack extends cdk.Stack {
               awsCloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
           },
         },
-        // certificate: props.certificate,
+        certificate: this.certificate,
       }
     );
 
@@ -153,6 +157,10 @@ export class ProfileLeptosStack extends cdk.Stack {
       distribution,
       cloudfrontOAI,
     };
+  }
+
+  getCertificate() {
+    this.certificate = Certificate.fromCertificateArn(this, "SiteCertificate", "arn:aws:acm:us-east-1:175468255336:certificate/c2144381-82ed-44f9-9232-29416b8426d7");
   }
 
   createS3Bucket(bucketName: string) {
