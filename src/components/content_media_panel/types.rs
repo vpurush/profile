@@ -1,3 +1,6 @@
+use std::fmt;
+use std::path::Display;
+
 use serde::{Deserialize, Serialize};
 use crate::components::content_panel::types::{ContentPanel, ContentfulContentPanel};
 use crate::components::picture_panel::types::{ContentfulPicturePanel, PicturePanel};
@@ -10,6 +13,15 @@ pub enum ContentMediaPanelVariants {
     Left,
     #[serde(rename(serialize = "right", deserialize = "right"))]
     Right
+}
+
+impl fmt::Display for ContentMediaPanelVariants {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            ContentMediaPanelVariants::Left => write!(f, "left"),
+            ContentMediaPanelVariants::Right => write!(f, "right")
+        }        
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]

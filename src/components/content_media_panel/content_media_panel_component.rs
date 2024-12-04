@@ -23,9 +23,11 @@ pub fn ContentMediaPanelComponent(content_media_panel: ContentMediaPanel) -> imp
         },
     };
 
+    let content_media_panel_classes = format!("content-media-panel {}", content_media_panel.variant);
+
 
     view! {
-        <div class="content-media-panel">
+        <div class={{content_media_panel_classes}}>
             <div class="left-panel">
                 {{leftComponent}}
             </div>

@@ -1,17 +1,57 @@
 .content-media-panel {
     width: 100%;
     display: flex;
-    flex-direction: row;
+
+    &.left {
+        flex-direction: column;
+    }
+
+    &.right {
+        flex-direction: column-reverse;
+    }
+    
+    @media (min-width: $breakpoint-md) {
+        &.left, &.right {
+            flex-direction: row;
+        }
+    }
 
     .left-panel {
-        flex: 1 0 calc(50% - 32px);
+        flex: 1 0;
         @include p(4);
         align-content: center;
+
+        @media (min-width: $breakpoint-md) {
+            flex: 1 0 calc(50% - 32px);
+        }
+        
     }
 
     .right-panel {
-        flex: 1 0 calc(50% - 32px);
+        flex: 1 0;
         @include p(4);
-        align-content: center;
+        align-content: center;        
+        
+        @media (min-width: $breakpoint-md) {
+            flex: 1 0 calc(50% - 32px);
+        }
+    }
+
+    .picture-panel {
+        .image {
+            transition: transform 2s;
+
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
+    }
+
+    @media (min-width: $breakpoint-md) {
+        .picture-panel {
+            .image {
+                max-height: 280px;
+            }
+        }
     }
 }
