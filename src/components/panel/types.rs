@@ -8,7 +8,8 @@ use crate::components::picture_panel::types::{ContentfulPicturePanel, PicturePan
 pub enum ContentfulPanel {
     ContentPanel(ContentfulContentPanel),
     PicturePanel(ContentfulPicturePanel),
-    ContentMediaPanel(ContentfulContentMediaPanel)
+    ContentMediaPanel(ContentfulContentMediaPanel),
+    SectionMediaPanel,
 }
 
 
@@ -21,7 +22,8 @@ pub struct ContentfulPanelsCollection {
 pub enum Panel {
     ContentPanel(ContentPanel),
     PicturePanel(PicturePanel),
-    ContentMediaPanel(ContentMediaPanel)
+    ContentMediaPanel(ContentMediaPanel),
+    SectionMediaPanel
 }
 // #[derive(Serialize, Deserialize, Debug, Clone)]
 // pub struct PanelsCollection {

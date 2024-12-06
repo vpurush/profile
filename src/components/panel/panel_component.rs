@@ -3,6 +3,7 @@ use crate::components::content_panel::content_panel_component::ContentPanelCompo
 use crate::components::panel::types::Panel::ContentMediaPanel;
 use crate::components::panel::types::{ContentfulPanel, Panel};
 use crate::components::picture_panel::picture_panel_component::PicturePanelComponent;
+use crate::components::visual_info::types::{ContentfulVisualInfoBackground, VisualInfo};
 use crate::components::visual_info::visual_info_component::VisualInfoComponent;
 use leptos::ServerFnError::ServerError;
 use leptos::{
@@ -27,5 +28,13 @@ pub fn PanelComponent(panel: Panel) -> impl IntoView {
                <ContentMediaPanelComponent content_media_panel=content_media_panel />
            </VisualInfoComponent>
         },
+        Panel::SectionMediaPanel => view! {
+            <VisualInfoComponent visual_info={VisualInfo {
+                text_alignment: crate::components::visual_info::types::ContentfulVisualInfoTextAlign::Left,
+                background_color: ContentfulVisualInfoBackground::None,
+            }}>
+                <div></div>
+            </VisualInfoComponent>
+        }
     }
 }

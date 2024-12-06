@@ -40,6 +40,9 @@ pub fn panel_decorator(contentful_panel: ContentfulPanel) -> Panel {
         },
         ContentfulPanel::ContentMediaPanel(content_media_panel) => {
             Panel::ContentMediaPanel(content_media_panel_decorator(content_media_panel))
+        },
+        ContentfulPanel::SectionMediaPanel => {
+            Panel::SectionMediaPanel
         }
     }
 }

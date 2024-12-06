@@ -16,7 +16,7 @@ pub fn get_page_query() -> String {
     format!(
         r#"
         query($slug: String!) {{
-          pageCollection (preview: true, where: {{slug: $slug}}, limit: 1) {{
+          pageCollection (preview: false, where: {{slug: $slug}}, limit: 1) {{
             items {{
               title
               slug
